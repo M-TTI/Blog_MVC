@@ -1,0 +1,19 @@
+DROP TABLE IF EXISTS Users;
+DROP TABLE IF EXISTS Article;
+
+
+CREATE TABLE Users(
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    username VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    last_connection DATETIME NOT NULL
+);
+
+CREATE TABLE Article(
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    publish_date DATETIME NOT NULL DEFAULT NOW(),
+    content TEXT NOT NULL,
+    image_path VARCHAR(255) NOT NULL DEFAULT "default.jpg",
+    id_user INT NOT NULL REFERENCES Users
+);
