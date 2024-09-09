@@ -54,4 +54,9 @@ class User
     {
         $this->last_connection = $last_connection;
     }
+
+    public function __toString(): string
+    {
+        return "User id : ".$this->id."\nusername : ".$this->username."\npassword : ".$this->password."\nlast_connection".$this->last_connection."\n";
+    }
 }

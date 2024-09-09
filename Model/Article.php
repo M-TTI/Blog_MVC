@@ -8,7 +8,7 @@ class Article
     private string $content;
     private int $id_user;
 
-    public function __construct(int $id = 0, string $title = "default_title", string $publish_date = "now XD", string $content = "default content", int $id_user = 0)
+    public function __construct(int $id = 0, string $title = "default_title", string $publish_date = "2000-00-00", string $content = "default content", int $id_user = 0)
     {
         $this->id = $id;
         $this->title = $title;
@@ -66,4 +66,11 @@ class Article
     {
         $this->id_user = $id_user;
     }
+
+    public function __toString(): string
+    {
+        return "Article id : ".$this->id."\ntitle : ".$this->title."\npublish date : ".$this->publish_date."\ncontent : ".$this->content."\n id_user : ".$this->id_user."\n";
+    }
+
+
 }
