@@ -15,44 +15,42 @@ class User
         $this->last_connection = $last_connection;
     }
 
-    public function getId(): int
+    public function __get($attr): string
     {
-        return $this->id;
+        switch($attr)
+        {
+            case 'id':
+                return $this->id;
+            case 'username':
+                return $this->username;
+            case 'password':
+                return $this->password;
+            case 'last_connection':
+                return $this->last_connection;
+            default:
+                die('Error, no attribute named '.$attr);
+        }
     }
 
-    public function setId(int $id): void
+    public function __set(string $attr, string $value): void
     {
-        $this->id = $id;
-    }
-
-    public function getUsername(): string
-    {
-        return $this->username;
-    }
-
-    public function setUsername(string $username): void
-    {
-        $this->username = $username;
-    }
-
-    public function getPassword(): string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): void
-    {
-        $this->password = $password;
-    }
-
-    public function getLastConnection(): string
-    {
-        return $this->last_connection;
-    }
-
-    public function setLastConnection(string $last_connection): void
-    {
-        $this->last_connection = $last_connection;
+        switch($attr)
+        {
+            case 'id':
+                $this->id = $value;
+                break;
+            case 'username':
+                $this->username = $value;
+                break;
+            case 'password':
+                $this->password = $value;
+                break;
+            case 'last_connection':
+                $this->last_connection = $value;
+                break;
+            default:
+                die('Error, no attribute named '.$attr);
+        }
     }
 
     public function __toString(): string

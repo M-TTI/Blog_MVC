@@ -17,54 +17,47 @@ class Article
         $this->id_user = $id_user;
     }
 
-    public function getId(): int
+    public function __get(string $attr): string
     {
-        return $this->id;
+        switch($attr)
+        {
+            case 'id':
+                return $this->id;
+            case 'title':
+                return $this->title;
+            case 'publish_date':
+                return $this->publish_date;
+            case 'content':
+                return $this->content;
+            case 'id_user':
+                return $this->id_user;
+            default:
+                die('Error, no attribute named '.$attr);
+        }
     }
 
-    public function setId(int $id): void
+    public function __set(string $attr, string $value): void
     {
-        $this->id = $id;
-    }
-
-    public function getTitle(): string
-    {
-        return $this->title;
-    }
-
-    public function setTitle(string $title): void
-    {
-        $this->title = $title;
-    }
-
-    public function getPublishDate(): string
-    {
-        return $this->publish_date;
-    }
-
-    public function setPublishDate(string $publish_date): void
-    {
-        $this->publish_date = $publish_date;
-    }
-
-    public function getContent(): string
-    {
-        return $this->content;
-    }
-
-    public function setContent(string $content): void
-    {
-        $this->content = $content;
-    }
-
-    public function getIdUser(): int
-    {
-        return $this->id_user;
-    }
-
-    public function setIdUser(int $id_user): void
-    {
-        $this->id_user = $id_user;
+        switch($attr)
+        {
+            case 'id':
+                $this->id = $value;
+                break;
+            case 'title':
+                $this->title = $value;
+                break;
+            case 'publish_date':
+                $this->publish_date = $value;
+                break;
+            case 'content':
+                $this->content = $value;
+                break;
+            case 'id_user':
+                $this->id_user = $value;
+                break;
+            default:
+                die('Error, no attribute named '.$attr);
+        }
     }
 
     public function __toString(): string
