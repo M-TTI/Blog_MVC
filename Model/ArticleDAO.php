@@ -40,7 +40,12 @@ class ArticleDAO
 
     public function create(Article $article) : void
     {
-        $sql = "INSERT INTO article VALUES(:title, :publish_date, :content, :image_path, :id_user)";
+        $sql = "INSERT INTO article VALUES(
+                           title = :title, 
+                           publish_date = :publish_date, 
+                           content = :content, 
+                           image_path = :image_path, 
+                           id_user = :id_user)";
         $req = $this->db->prepare($sql);
         $req->execute(['title' => $article->title, 'publish_date' => $article->publish_date,
             'content' => $article->content, 'image_path' => $article->image_path, 'id_user' => $article->id_user]);
@@ -48,8 +53,13 @@ class ArticleDAO
 
     public function update(int $id, Article $article) : void
     {
-        $sql = "UPDATE article SET title = :title, publish_date = :publish_date, content = :content, image_path = :image_path, id_user = :user_id
-WHERE id = :id";
+        $sql = "UPDATE article SET 
+                   title = :title, 
+                   publish_date = :publish_date, 
+                   content = :content, 
+                   image_path = :image_path, 
+                   id_user = :user_id
+               WHERE id = :id";
         $req = $this->db->prepare($sql);
         $req->execute(['id' => $id, 'title' => $article->title, 'publish_date' => $article->publish_date,
             'content' => $article->content, 'image_path' => $article->image_path, 'id_user' => $article->id_user]);

@@ -9,7 +9,13 @@ class Article
     private string $image_path;
     private int $id_user;
 
-    public function __construct(int $id = 0, string $title = "default_title", string $publish_date = "2000-00-00", string $content = "default content", string $image_path = "default.jpg", int $id_user = 0)
+    public function __construct(
+        int $id = 0,
+        string $title = "default_title",
+        string $publish_date = "NOW()",
+        string $content = "default content",
+        string $image_path = "default.jpg",
+        int $id_user = 0)
     {
         $this->id = $id;
         $this->title = $title;
