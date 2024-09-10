@@ -34,7 +34,7 @@ class ArticleDAO
         $articleArray = [];
         while ($articleData = $req->fetch())
         {
-            $articleArray[] += new Article($articleData['id'], $articleData['title'], $articleData['publish_date'], $articleData['$content'], $articleData['image_path'], $articleData['id_user']);
+            $articleArray[] = new Article($articleData['id'], $articleData['title'], $articleData['publish_date'], $articleData['content'], $articleData['image_path'], $articleData['id_user']);
         }
         return $articleArray;
     }
