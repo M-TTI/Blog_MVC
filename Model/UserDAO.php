@@ -15,7 +15,7 @@ class UserDAO
         }
     }
 
-    public function connectUser($username, $password) : bool
+    public function connectUser($username, $password) : string
     {
         $sql = 'SELECT * FROM users WHERE username = ?';
         $req = $this->db->prepare($sql);
@@ -35,15 +35,12 @@ class UserDAO
                 $req = $this->db->prepare($sql);
                 $req->execute([$username]);
 
-                $_SESSION['id'] = $userData['id'];
-                $_SESSION['username'] = $userData['username'];
-                $_SESSION['last_connection'] = $userData['last_connection'];
-                $_SESSION['connected'] = true;
-
-                return true;
+                $_SESSION['user_id'] = $userData['id'];
+                $_SESSION['user_name'] = $userData['username'];
+                return 'ok';
             }
         }
-        return false;
+        return 'nom d\'utilisateur ou mot de passe éronné';
     }
 
     public function getByID(int $id) : User
