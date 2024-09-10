@@ -31,7 +31,7 @@ if (isset($_POST['btnCreate']))
         isset($_POST['image_path']) and $_POST['image_path'] != ''
     )
     {
-        $article = new Article('title', 'content', 'image_path', $_SESSION['user_id']);
+        $article = new Article($title = $_POST['title'], $content = $_POST['content'], $image_path = $_POST['image_path'], $id_user = $_SESSION['user_id']);
         $dao_article->create($article);
     }
 
@@ -42,7 +42,13 @@ if ($connexion_message != '')
     if ($connexion_message != 'ok')
     {
         echo $connexion_message;
-        include('view/connection_form.php')
+        include('view/connection_form.php');
+    }
+    else
+    {
+        $articles = $dao_article->getAll();
+        include('view/create_article.php');
+        include('view/article_display.php');
     }
 }
 
