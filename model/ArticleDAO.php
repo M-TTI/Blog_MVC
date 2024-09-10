@@ -1,4 +1,5 @@
 <?php
+require_once('Article.php');
 
 class ArticleDAO
 {
@@ -40,12 +41,12 @@ class ArticleDAO
 
     public function create(Article $article) : void
     {
-        $sql = "INSERT INTO article VALUES(
-                           title = :title, 
-                           publish_date = :publish_date, 
-                           content = :content, 
-                           image_path = :image_path, 
-                           id_user = :id_user)";
+        $sql = "INSERT INTO article (title, publish_date, content, image_path, id_user) VALUES(
+                            :title, 
+                            :publish_date, 
+                            :content, 
+                            :image_path, 
+                            :id_user)";
         $req = $this->db->prepare($sql);
         $req->execute(['title' => $article->title, 'publish_date' => $article->publish_date,
             'content' => $article->content, 'image_path' => $article->image_path, 'id_user' => $article->id_user]);
