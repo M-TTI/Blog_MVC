@@ -12,6 +12,7 @@ if (isset($_GET['deco']))
 {
     unset($_GET['user_id']);
     unset($_GET['user_name']);
+    include('view/connection_form.php');
 }
 
 if (isset($_POST['btn_connect']))

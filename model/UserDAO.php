@@ -68,7 +68,7 @@ class UserDAO
         return $userArray;
     }
 
-    public function create(User $user) : void
+    public function create(User $user) : void //TODO : FIX THIS !
     {
         $sql = "INSERT INTO users VALUES(:id, :username, :password, :last_connection)";
         $req = $this->db->prepare($sql);
@@ -76,7 +76,7 @@ class UserDAO
             'last_connection' => $user->last_connection]);
     }
 
-    public function update(int $id, User $user) : void
+    public function update(int $id, User $user) : void //TODO : FIX THIS !
     {
         $sql = "UPDATE users SET id = :new_id, username = :username, password = :password, last_connection = :last_connection
 WHERE id = :old_id";
