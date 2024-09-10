@@ -52,5 +52,3 @@ if ($connexion_message != '')
     }
 }
 
-include("view/connection_form.php");
-
