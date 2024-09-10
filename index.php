@@ -2,26 +2,49 @@
 require_once('model/UserDAO.php');
 require_once('model/ArticleDAO.php');
 
-echo '
-<html>
-    <head>
-        <title>Blog</title>
-    </head>
-    <body>
-';
-$dao_user = new UserDAO();
-$dao_article = new ArticleDAO();
-
 session_start();
 
-include("View/connection_form.php");
-if (isset($_POST['username']) and isset($_POST['password']))
+$dao_user = new UserDAO();
+$dao_article = new ArticleDAO();
+$connexion_message = '';
+
+if (isset($_GET['deco']))
 {
-    $dao_user->connectUser($_POST['username'], $_POST['password']);
+    unset($_GET['user_id']);
+    unset($_GET['user_name']);
 }
 
+if (isset($_POST['btn_connect']))
+{
+    if (isset($_POST['username']) and $_POST['username'] != '' and
+        isset($_POST['password']) and $_POST['password'] != '')
+    {
+        $connexion_message = $dao_user->connectUser($_POST['username'], $_POST['password']);
+    }
+}
+if (isset($_POST['btnCreate']))
+{
+    if
+    (
+        isset($_POST['title']) and $_POST['title'] != '' and
+        isset($_POST['content']) and $_POST['content'] != '' and
+        isset($_POST['image_path']) and $_POST['image_path'] != ''
+    )
+    {
+        $article = new Article('title', 'content', 'image_path', $_SESSION['user_id']);
+        $dao_article->create($article);
+    }
 
-echo '
-    </body>
-</html>
-';
+}
+
+if ($connexion_message != '')
+{
+    if ($connexion_message != 'ok')
+    {
+        echo $connexion_message;
+        include('view/connection_form.php')
+    }
+}
+
+include("view/connection_form.php");
+
