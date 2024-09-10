@@ -28,11 +28,12 @@ if (isset($_POST['btnCreate']))
     if
     (
         isset($_POST['title']) and $_POST['title'] != '' and
-        isset($_POST['content']) and $_POST['content'] != '' and
-        isset($_POST['image_path']) and $_POST['image_path'] != ''
+        isset($_POST['content']) and $_POST['content'] != '' //and
+        //isset($_POST['image_path']) and $_POST['image_path'] != '' TODO: add image_path support in view
     )
     {
-        $article = new Article($title = $_POST['title'], $content = $_POST['content'], $image_path = $_POST['image_path'], $id_user = $_SESSION['user_id']);
+        //$article = new Article($title = $_POST['title'], $content = $_POST['content']/*, $image_path = $_POST['image_path']*/, $id_user = $_SESSION['user_id']);
+        $article = new Article(0, $_POST['title'], 'NOW()', $_POST['content'], 'default.jpg', $_SESSION['user_id']); //Band-Aid fix for now, TODO: FIX THIS
         $dao_article->create($article);
     }
 
@@ -45,11 +46,11 @@ if ($connexion_message != '')
         echo $connexion_message;
         include('view/connection_form.php');
     }
-    else
-    {
-        $articles = $dao_article->getAll();
-        include('view/create_article.php');
-        include('view/article_display.php');
-    }
+}
+else
+{
+    $articles = $dao_article->getAll();
+    include('view/create_article.php');
+    include('view/article_display.php');
 }
 
