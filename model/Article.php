@@ -82,6 +82,4 @@ class Article
             .$this->image_path."\n id_user : "
             .$this->id_user."\n";
     }
-
-
 }
