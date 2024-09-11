@@ -75,7 +75,12 @@ class Article
 
     public function __toString(): string
     {
-        return "Article id : ".$this->id."\ntitle : ".$this->title."\npublish date : ".$this->publish_date."\ncontent : ".$this->content."\n image_path : ".$this->image_path."\n id_user : ".$this->id_user."\n";
+        return "Article id : ".$this->id."\ntitle : "
+            .$this->title."\npublish date : "
+            .$this->publish_date."\ncontent : "
+            .$this->content."\n image_path : "
+            .$this->image_path."\n id_user : "
+            .$this->id_user."\n";
     }
 
 
