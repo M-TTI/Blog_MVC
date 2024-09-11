@@ -7,12 +7,12 @@ session_start();
 $dao_user = new UserDAO();
 $dao_article = new ArticleDAO();
 $connexion_message = '';
+$module = '';
 
 if (isset($_GET['deco']))
 {
-    unset($_GET['user_id']);
-    unset($_GET['user_name']);
-    include('view/connection_form.php');
+    unset($_SESSION['user_id']);
+    unset($_SESSION['user_name']);
 }
 
 if (isset($_POST['btn_connect']))
@@ -36,16 +36,22 @@ if (isset($_POST['btnCreate']))
         $article = new Article(0, $_POST['title'], 'NOW()', $_POST['content'], 'default.jpg', $_SESSION['user_id']); //Band-Aid fix for now, TODO: FIX THIS
         $dao_article->create($article);
     }
-
 }
 
-if ($connexion_message != '')
+if (isset($_POST['article_edit_id']))
 {
-    if ($connexion_message != 'ok')
-    {
-        echo $connexion_message;
-        include('view/connection_form.php');
-    }
+    //TODO: ADD SUPPORT FOR EDITING ARTICLE
+}
+
+if (isset($_POST['article_delete_id']))
+{
+    $dao_article->delete($_POST['article_delete_id']);
+}
+
+if(!isset($_SESSION['user_id']))
+{
+    echo $connexion_message;
+    include('view/connection_form.php');
 }
 else
 {
