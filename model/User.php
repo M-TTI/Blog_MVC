@@ -7,7 +7,11 @@ class User
     private string $password;
     private string $last_connection;
 
-    public function __construct($id = 0, $username = "test", $password = "default_password", $last_connection = "now XD")
+    public function __construct(
+        $id = 0,
+        $username = "test",
+        $password = "default_password",
+        $last_connection = "now XD")
     {
         $this->id = $id;
         $this->username = $username;
@@ -55,6 +59,9 @@ class User
 
     public function __toString(): string
     {
-        return "User id : ".$this->id."\nusername : ".$this->username."\npassword : ".$this->password."\nlast_connection".$this->last_connection."\n";
+        return "User id : ".$this->id.
+            "\nusername : ".$this->username.
+            "\npassword : ".$this->password.
+            "\nlast_connection".$this->last_connection."\n";
     }
 }

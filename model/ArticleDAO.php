@@ -22,7 +22,13 @@ class ArticleDAO
         $req->execute([$id]);
         $articleData = $req->fetch();
 
-        return new Article($articleData['id'], $articleData['title'], $articleData['publish_date'], $articleData['$content'], $articleData['image_path'], $articleData['id_user']);
+        return new Article(
+            $articleData['id'],
+            $articleData['title'],
+            $articleData['publish_date'],
+            $articleData['$content'],
+            $articleData['image_path'],
+            $articleData['id_user']);
     }
 
     public function getAll() : array
@@ -34,7 +40,13 @@ class ArticleDAO
         $articleArray = [];
         while ($articleData = $req->fetch())
         {
-            $articleArray[] = new Article($articleData['id'], $articleData['title'], $articleData['publish_date'], $articleData['content'], $articleData['image_path'], $articleData['id_user']);
+            $articleArray[] = new Article(
+                $articleData['id'],
+                $articleData['title'],
+                $articleData['publish_date'],
+                $articleData['content'],
+                $articleData['image_path'],
+                $articleData['id_user']);
         }
         return $articleArray;
     }
@@ -43,13 +55,16 @@ class ArticleDAO
     {
         $sql = "INSERT INTO article (title, publish_date, content, image_path, id_user) VALUES(
                             :title, 
-                            :publish_date, 
+                            NOW(), 
                             :content, 
                             :image_path, 
                             :id_user)";
         $req = $this->db->prepare($sql);
-        $req->execute(['title' => $article->title, 'publish_date' => $article->publish_date,
-            'content' => $article->content, 'image_path' => $article->image_path, 'id_user' => $article->id_user]);
+        $req->execute([
+            'title' => $article->title,
+            'content' => $article->content,
+            'image_path' => $article->image_path,
+            'id_user' => $article->id_user]);
     }
 
     public function update(int $id, Article $article) : void
@@ -62,8 +77,12 @@ class ArticleDAO
                    id_user = :user_id
                WHERE id = :id";
         $req = $this->db->prepare($sql);
-        $req->execute(['id' => $id, 'title' => $article->title, 'publish_date' => $article->publish_date,
-            'content' => $article->content, 'image_path' => $article->image_path, 'id_user' => $article->id_user]);
+        $req->execute(['id' => $id,
+            'title' => $article->title,
+            'publish_date' => $article->publish_date,
+            'content' => $article->content,
+            'image_path' => $article->image_path,
+            'id_user' => $article->id_user]);
     }
 
     public function delete(int $id) : void
@@ -72,5 +91,4 @@ class ArticleDAO
         $req = $this->db->prepare($sql);
         $req->execute([$id]);
     }
-
 }
