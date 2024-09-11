@@ -51,7 +51,11 @@ class UserDAO
         $req->execute([$id]);
         $userData = $req->fetch();
 
-        return new User($userData['id'], $userData['username'], $userData['password'], $userData['last_connection']);
+        return new User(
+            $userData['id'],
+            $userData['username'],
+            $userData['password'],
+            $userData['last_connection']);
     }
 
     public function getAll() : array
@@ -63,25 +67,44 @@ class UserDAO
         $userArray = [];
         while ($userData = $req->fetch())
         {
-            $userArray[] += new User($userData['id'], $userData['username'], $userData['password'], $userData['last_connection']);
+            $userArray[] += new User(
+                $userData['id'],
+                $userData['username'],
+                $userData['password'],
+                $userData['last_connection']);
         }
         return $userArray;
     }
 
     public function create(User $user) : void //TODO : FIX THIS !
     {
-        $sql = "INSERT INTO users VALUES(:id, :username, :password, :last_connection)";
+        $sql = "INSERT INTO users VALUES(
+                         :id, 
+                         :username, 
+                         :password, 
+                         :last_connection)";
         $req = $this->db->prepare($sql);
-        $req->execute(['id' => $user->id, 'username' => $user->username, 'password' => $user->password,
+        $req->execute([
+            'id' => $user->id,
+            'username' => $user->username,
+            'password' => $user->password,
             'last_connection' => $user->last_connection]);
     }
 
     public function update(int $id, User $user) : void //TODO : FIX THIS !
     {
-        $sql = "UPDATE users SET id = :new_id, username = :username, password = :password, last_connection = :last_connection
-WHERE id = :old_id";
+        $sql = "UPDATE users SET 
+                    id = :new_id, 
+                    username = :username, 
+                    password = :password, 
+                    last_connection = :last_connection
+                WHERE id = :old_id";
         $req = $this->db->prepare($sql);
-        $req->execute(['old_id' => $id,'new_id' => $user->id, 'username' => $user->username, 'password' => $user->password,
+        $req->execute([
+            'old_id' => $id,
+            'new_id' => $user->id,
+            'username' => $user->username,
+            'password' => $user->password,
             'last_connection' => $user->last_connection]);
     }
 
