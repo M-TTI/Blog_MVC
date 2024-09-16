@@ -8,13 +8,23 @@
     <?php if ($a->id_user == $_SESSION['user_id']) { ?>
             <form action="index.php" method="post">
                 <input type="hidden" value="<?= $a->id ?>" name="article_edit_id">
-                <input type="submit" value="edit" name="article_edit_button">
+                <input type="submit" value="edit">
             </form>
-            <form action="index.php" method="post">
+            <form action="index.php" method="post" id="deleteForm">
                 <input type="hidden" value="<?= $a->id ?>" name="article_delete_id">
-                <input type="submit" value="delete" name="article_delete_button">
+                <input type="submit" value="delete">
             </form>
         <?php }?>
     <hr>
 <?php } ?>
+<script>
+    function deleteAlerte()
+    {
+        res = confirm("Press a button!");
+        if(res)
+        {
+            document.forms['deleteForm'].submit();
+        }
+    }
+</script>
 <a href="index.php?deco">Déconnexion</a>
