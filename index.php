@@ -28,21 +28,27 @@ if (isset($_POST['btnCreate']))
     if
     (
         isset($_POST['title']) and $_POST['title'] != '' and
-        isset($_POST['content']) and $_POST['content'] != '' //and
-        //isset($_POST['image_path']) and $_POST['image_path'] != '' TODO: add image_path support in view
+        isset($_POST['content']) and $_POST['content'] != '' and
+        isset($_POST['image_path'])
     )
     {
+        if (isset($_POST['image_path']) == '')
+        {
+            $image_path = './img/default.jpg';
+        } else {
+            $image_path = $_POST['image_path'];
+        }
         //$article = new Article($title = $_POST['title'], $content = $_POST['content']/*, $image_path = $_POST['image_path']*/, $id_user = $_SESSION['user_id']);
-        $article = new Article(0, $_POST['title'], 'NOW()', $_POST['content'], 'default.jpg', $_SESSION['user_id']); //Band-Aid fix for now, TODO: FIX THIS
+        $article = new Article(0, $_POST['title'], 'NOW()', $_POST['content'], $image_path, $_SESSION['user_id']); //Band-Aid fix for now, TODO: FIX THIS
         $dao_article->create($article);
     }
 }
 
 if (isset($_POST['btnConfirmEdit']))
 {
-    $article = new Article(0, $_POST['title'], 'NOW()', $_POST['content'], 'default.jpg', $_SESSION['user_id']);
+    $article = new Article(0, $_POST['title'], 'NOW()', $_POST['content'], './img/default.jpg', $_SESSION['user_id']);
     $dao_article->update($_POST['article_edit_id'], $article);
-    $_POST['article_edit_id'];
+    unset($_POST['article_edit_id']);
 }
 
 if (isset($_POST['article_delete_id']))
@@ -50,6 +56,7 @@ if (isset($_POST['article_delete_id']))
     $dao_article->delete($_POST['article_delete_id']);
 }
 
+include ('view/header.php');
 if(!isset($_SESSION['user_id']))
 {
     echo $connexion_message;

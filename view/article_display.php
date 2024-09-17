@@ -14,8 +14,9 @@
             <button name="btnCancelEdit">cancel</button>
         </form>
     <?php } else {?>
-        <h2><?= $a->title?> le <small><?= $a->publish_date ?></small></h2>
+        <h2><?= $a->title?> le <small><?= $a->publish_date ?> par <?= $dao_user->getByID($a->id_user)->username ?></small></h2>
         <p><?= $a->content ?></p>
+        <img src="<?=$a->image_path?>">
     <?php if ($a->id_user == $_SESSION['user_id']) { ?>
             <form action="index.php" method="post">
                 <input type="hidden" value="<?= $a->id ?>" name="article_edit_id">
