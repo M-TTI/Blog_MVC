@@ -12,7 +12,7 @@
             </form>
             <form action="index.php" method="post" id="deleteForm">
                 <input type="hidden" value="<?= $a->id ?>" name="article_delete_id">
-                <input type="submit" value="delete" onclick="deleteAlerte()">
+                <input type="button" value="delete" onclick="deleteAlerte()">
             </form>
         <?php }?>
     <hr>
@@ -20,10 +20,10 @@
 <script>
     function deleteAlerte()
     {
-        res = confirm("Are you sure you want to delete this article ?");
+        let res = confirm("Are you sure you want to delete this article ?");
         if(res)
         {
-            document.forms['deleteForm'].submit();
+            document.forms["deleteForm"].submit();
         }
     }
 </script>
