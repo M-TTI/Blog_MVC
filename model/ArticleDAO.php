@@ -71,18 +71,15 @@ class ArticleDAO
     {
         $sql = "UPDATE article SET 
                    title = :title, 
-                   publish_date = :publish_date, 
+                   publish_date = NOW(), 
                    content = :content, 
-                   image_path = :image_path, 
-                   id_user = :user_id
+                   image_path = :image_path
                WHERE id = :id";
         $req = $this->db->prepare($sql);
         $req->execute(['id' => $id,
             'title' => $article->title,
-            'publish_date' => $article->publish_date,
             'content' => $article->content,
-            'image_path' => $article->image_path,
-            'id_user' => $article->id_user]);
+            'image_path' => $article->image_path]);
     }
 
     public function delete(int $id) : void

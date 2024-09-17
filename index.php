@@ -38,9 +38,11 @@ if (isset($_POST['btnCreate']))
     }
 }
 
-if (isset($_POST['article_edit_id']))
+if (isset($_POST['btnConfirmEdit']))
 {
-    //TODO: ADD SUPPORT FOR EDITING ARTICLE
+    $article = new Article(0, $_POST['title'], 'NOW()', $_POST['content'], 'default.jpg', $_SESSION['user_id']);
+    $dao_article->update($_POST['article_edit_id'], $article);
+    $_POST['article_edit_id'];
 }
 
 if (isset($_POST['article_delete_id']))
