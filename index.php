@@ -28,16 +28,37 @@ if (isset($_POST['btnCreate']))
     if
     (
         isset($_POST['title']) and $_POST['title'] != '' and
-        isset($_POST['content']) and $_POST['content'] != '' and
-        isset($_POST['image_path'])
+        isset($_POST['content']) and $_POST['content']
     )
     {
-        if (isset($_POST['image_path']) == '')
+        if (isset($_FILES['fileToUpload'])) {
+            $target_dir = "./uploads/";
+            $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+            $uploadOk = 1;
+            $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+            if (isset($_POST["submit"])) {
+                $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+                if ($check !== false) {
+                    $uploadOk = 1;
+                } else {
+                    $uploadOk = 0;
+                }
+                if ($_FILES["fileToUpload"]["size"] > 1000000) {
+                    $uploadOk = 0;
+                }
+            }
+            if ($uploadOk == 0) {
+                echo "Sorry, your file was not uploaded.";
+            } else {
+                move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
+            }
+            $image_path = $target_file;
+        }
+        else
         {
             $image_path = './img/default.jpg';
-        } else {
-            $image_path = $_POST['image_path'];
         }
+
         //$article = new Article($title = $_POST['title'], $content = $_POST['content']/*, $image_path = $_POST['image_path']*/, $id_user = $_SESSION['user_id']);
         $article = new Article(0, $_POST['title'], 'NOW()', $_POST['content'], $image_path, $_SESSION['user_id']); //Band-Aid fix for now, TODO: FIX THIS
         $dao_article->create($article);
@@ -54,8 +75,11 @@ if (isset($_POST['btnConfirmEdit']))
 if (isset($_POST['article_delete_id']))
 {
     $dao_article->delete($_POST['article_delete_id']);
+    unset($_POST['article_delete_id']);
 }
 
+
+//Views
 include ('view/header.php');
 if(!isset($_SESSION['user_id']))
 {
@@ -68,4 +92,3 @@ else
     include('view/create_article.php');
     include('view/article_display.php');
 }
-
